@@ -6347,6 +6347,16 @@ func init() {
 	types.Add("vsan:VsanFileServiceConfig", reflect.TypeOf((*VsanFileServiceConfig)(nil)).Elem())
 }
 
+type VsanVbossClusterConfig struct {
+	types.DynamicData
+
+	Enabled bool `xml:"enabled"`
+}
+
+func init() {
+	types.Add("vsan:VbossClusterConfig", reflect.TypeOf((*VsanVbossClusterConfig)(nil)).Elem())
+}
+
 type VsanVdsMigrationPlan struct {
 	types.DynamicData
 
@@ -8452,6 +8462,7 @@ type VsanConfigInfoEx struct {
 	UnmapConfig                   *VsanUnmapConfig                   `xml:"unmapConfig,omitempty"`
 	VumConfig                     *VsanVumConfig                     `xml:"vumConfig,omitempty"`
 	FileServiceConfig             *VsanFileServiceConfig             `xml:"fileServiceConfig,omitempty"`
+	VbossClusterConfig            *VsanVbossClusterConfig            `xml:"vbossClusterConfig,omitempty"`
 	MetricsConfig                 *VsanMetricsConfig                 `xml:"metricsConfig,omitempty"`
 	DataInTransitEncryptionConfig *VsanDataInTransitEncryptionConfig `xml:"dataInTransitEncryptionConfig,omitempty"`
 }
