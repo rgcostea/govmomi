@@ -6354,7 +6354,7 @@ type VsanVbossClusterConfig struct {
 }
 
 func init() {
-	types.Add("vsan:VbossClusterConfig", reflect.TypeOf((*VsanVbossClusterConfig)(nil)).Elem())
+	types.Add("vsan:VsanVbossClusterConfig", reflect.TypeOf((*VsanVbossClusterConfig)(nil)).Elem())
 }
 
 type VsanVdsMigrationPlan struct {
