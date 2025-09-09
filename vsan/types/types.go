@@ -4727,6 +4727,7 @@ type VimVsanReconfigSpec struct {
 	DatastoreConfig               BaseVsanDatastoreConfig               `xml:"datastoreConfig,omitempty,typeattr"`
 	PerfsvcConfig                 *VsanPerfsvcConfig                    `xml:"perfsvcConfig,omitempty"`
 	UnmapConfig                   *VsanUnmapConfig                      `xml:"unmapConfig,omitempty"`
+	VbossClusterConfig            *VsanVbossClusterConfig               `xml:"vbossClusterConfig,omitempty"`
 	VumConfig                     *VsanVumConfig                        `xml:"vumConfig,omitempty"`
 	MetricsConfig                 *VsanMetricsConfig                    `xml:"metricsConfig,omitempty"`
 	FileServiceConfig             *VsanFileServiceConfig                `xml:"fileServiceConfig,omitempty"`
@@ -8694,3 +8695,5 @@ type VsanVibInstallPreflightStatus struct {
 func init() {
 	types.Add("vsan:VsanVibInstallPreflightStatus", reflect.TypeOf((*VsanVibInstallPreflightStatus)(nil)).Elem())
 }
+
+
