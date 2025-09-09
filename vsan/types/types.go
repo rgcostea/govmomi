@@ -4323,6 +4323,68 @@ type VsanRetrievePropertiesResponse struct {
 	Returnval []types.ObjectContent `xml:"returnval,omitempty"`
 }
 
+// vBOSS System Management Object Methods
+
+type VsanVbossSystemCreateObjectStoreShards VsanVbossSystemCreateObjectStoreShardsRequestType
+
+func init() {
+	types.Add("vsan:VsanVbossSystemCreateObjectStoreShards", reflect.TypeOf((*VsanVbossSystemCreateObjectStoreShards)(nil)).Elem())
+}
+
+type VsanVbossSystemCreateObjectStoreShardsRequestType struct {
+	This          types.ManagedObjectReference  `xml:"_this"`
+	ObjectStoreId string                        `xml:"objectStoreId"`
+	Cluster       *types.ManagedObjectReference `xml:"cluster,omitempty"`
+}
+
+func init() {
+	types.Add("vsan:VsanVbossSystemCreateObjectStoreShardsRequestType", reflect.TypeOf((*VsanVbossSystemCreateObjectStoreShardsRequestType)(nil)).Elem())
+}
+
+type VsanVbossSystemCreateObjectStoreShardsResponse struct {
+	Returnval types.ManagedObjectReference `xml:"returnval"`
+}
+
+type VsanVbossSystemDestroyObjectStoreShards VsanVbossSystemDestroyObjectStoreShardsRequestType
+
+func init() {
+	types.Add("vsan:VsanVbossSystemDestroyObjectStoreShards", reflect.TypeOf((*VsanVbossSystemDestroyObjectStoreShards)(nil)).Elem())
+}
+
+type VsanVbossSystemDestroyObjectStoreShardsRequestType struct {
+	This          types.ManagedObjectReference  `xml:"_this"`
+	ObjectStoreId string                        `xml:"objectStoreId"`
+	Cluster       *types.ManagedObjectReference `xml:"cluster,omitempty"`
+}
+
+func init() {
+	types.Add("vsan:VsanVbossSystemDestroyObjectStoreShardsRequestType", reflect.TypeOf((*VsanVbossSystemDestroyObjectStoreShardsRequestType)(nil)).Elem())
+}
+
+type VsanVbossSystemDestroyObjectStoreShardsResponse struct {
+	Returnval types.ManagedObjectReference `xml:"returnval"`
+}
+
+type VsanQueryVsanObjectByShard VsanQueryVsanObjectByShardRequestType
+
+func init() {
+	types.Add("vsan:VsanQueryVsanObjectByShard", reflect.TypeOf((*VsanQueryVsanObjectByShard)(nil)).Elem())
+}
+
+type VsanQueryVsanObjectByShardRequestType struct {
+	This    types.ManagedObjectReference         `xml:"_this"`
+	Cluster *types.ManagedObjectReference        `xml:"cluster,omitempty"`
+	Spec    *VsanVbossShardMappingQuerySpec      `xml:"spec,omitempty"`
+}
+
+func init() {
+	types.Add("vsan:VsanQueryVsanObjectByShardRequestType", reflect.TypeOf((*VsanQueryVsanObjectByShardRequestType)(nil)).Elem())
+}
+
+type VsanQueryVsanObjectByShardResponse struct {
+	Returnval *VsanVbossShardMappingResult `xml:"returnval,omitempty"`
+}
+
 type VsanBurnInTest struct {
 	types.DynamicData
 
@@ -6348,14 +6410,55 @@ func init() {
 	types.Add("vsan:VsanFileServiceConfig", reflect.TypeOf((*VsanFileServiceConfig)(nil)).Elem())
 }
 
-type VsanVbossClusterConfig struct {
+// Base vBOSS configuration type
+type VsanVbossConfig struct {
 	types.DynamicData
 
 	Enabled bool `xml:"enabled"`
 }
 
 func init() {
+	types.Add("vsan:VsanVbossConfig", reflect.TypeOf((*VsanVbossConfig)(nil)).Elem())
+}
+
+// Cluster-level vBOSS configuration that extends the base config
+type VsanVbossClusterConfig struct {
+	VsanVbossConfig
+}
+
+func init() {
 	types.Add("vsan:VsanVbossClusterConfig", reflect.TypeOf((*VsanVbossClusterConfig)(nil)).Elem())
+}
+
+// Host-level vBOSS configuration that extends the base config
+type VsanVbossHostConfig struct {
+	VsanVbossConfig
+}
+
+func init() {
+	types.Add("vsan:VsanVbossHostConfig", reflect.TypeOf((*VsanVbossHostConfig)(nil)).Elem())
+}
+
+// vBOSS shard mapping query specification
+type VsanVbossShardMappingQuerySpec struct {
+	types.DynamicData
+
+	ShardUuids []string `xml:"shardUuids,omitempty"`
+}
+
+func init() {
+	types.Add("vsan:VsanVbossShardMappingQuerySpec", reflect.TypeOf((*VsanVbossShardMappingQuerySpec)(nil)).Elem())
+}
+
+// vBOSS shard mapping query result
+type VsanVbossShardMappingResult struct {
+	types.DynamicData
+
+	ShardUuids []types.KeyAnyValue `xml:"shardUuids,omitempty"`
+}
+
+func init() {
+	types.Add("vsan:VsanVbossShardMappingResult", reflect.TypeOf((*VsanVbossShardMappingResult)(nil)).Elem())
 }
 
 type VsanVdsMigrationPlan struct {
@@ -6421,6 +6524,7 @@ type VsanHostConfigInfoEx struct {
 	MetricsConfig               *VsanMetricsConfig                  `xml:"metricsConfig,omitempty"`
 	UnicastConfig               *VsanHostServerClusterUnicastConfig `xml:"unicastConfig,omitempty"`
 	DataInTransitEncryptionInfo *VsanInTransitEncryptionInfo        `xml:"dataInTransitEncryptionInfo,omitempty"`
+	VbossHostConfig             *VsanVbossHostConfig                `xml:"vbossHostConfig,omitempty"`
 }
 
 func init() {
