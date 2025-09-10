@@ -62,6 +62,10 @@ type Client struct {
 // NewClient creates a new VsanHealth client
 func NewClient(ctx context.Context, c *vim25.Client) (*Client, error) {
 	sc := c.Client.NewServiceClient(Path, Namespace)
+
+	// Hardcode to use vSAN development version for vBOSS shard methods
+	sc.Version = "dev.version"
+
 	return &Client{sc, sc, c}, nil
 }
 
@@ -201,20 +205,4 @@ func (c *Client) VsanVbossSystemDestroyObjectStoreShards(ctx context.Context, ob
 	}
 
 	return object.NewTask(c.vim25Client, res.Returnval), nil
-}
-
-// VsanQueryVsanObjectByShard queries vSAN objects by shard mapping
-func (c *Client) VsanQueryVsanObjectByShard(ctx context.Context, cluster *vimtypes.ManagedObjectReference, spec *vsantypes.VsanVbossShardMappingQuerySpec) (*vsantypes.VsanVbossShardMappingResult, error) {
-	req := vsantypes.VsanQueryVsanObjectByShardRequestType{
-		This:    VsanVbossSystemInstance,
-		Cluster: cluster,
-		Spec:    spec,
-	}
-
-	res, err := methods.VsanQueryVsanObjectByShard(ctx, c, &req)
-	if err != nil {
-		return nil, err
-	}
-
-	return res.Returnval, nil
 }
