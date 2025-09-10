@@ -4372,3 +4372,23 @@ func VsanVbossSystemDestroyObjectStoreShards(ctx context.Context, r soap.RoundTr
 
 	return resBody.Res, nil
 }
+
+type VsanQueryVsanObjectByShardBody struct {
+	Req    *types.VsanQueryVsanObjectByShard         `xml:"urn:vsan VsanQueryVsanObjectByShard,omitempty"`
+	Res    *types.VsanQueryVsanObjectByShardResponse `xml:"urn:vsan VsanQueryVsanObjectByShardResponse,omitempty"`
+	Fault_ *soap.Fault                               `xml:"http://schemas.xmlsoap.org/soap/envelope/ Fault,omitempty"`
+}
+
+func (b *VsanQueryVsanObjectByShardBody) Fault() *soap.Fault { return b.Fault_ }
+
+func VsanQueryVsanObjectByShard(ctx context.Context, r soap.RoundTripper, req *types.VsanQueryVsanObjectByShardRequestType) (*types.VsanQueryVsanObjectByShardResponse, error) {
+	var reqBody, resBody VsanQueryVsanObjectByShardBody
+
+	reqBody.Req = (*types.VsanQueryVsanObjectByShard)(req)
+
+	if err := r.RoundTrip(ctx, &reqBody, &resBody); err != nil {
+		return nil, err
+	}
+
+	return resBody.Res, nil
+}

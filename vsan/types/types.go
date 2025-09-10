@@ -4372,9 +4372,9 @@ func init() {
 }
 
 type VsanQueryVsanObjectByShardRequestType struct {
-	This    types.ManagedObjectReference         `xml:"_this"`
-	Cluster *types.ManagedObjectReference        `xml:"cluster,omitempty"`
-	Spec    *VsanVbossShardMappingQuerySpec      `xml:"spec,omitempty"`
+	This    types.ManagedObjectReference    `xml:"_this"`
+	Cluster *types.ManagedObjectReference   `xml:"cluster,omitempty"`
+	Spec    *VsanVbossShardMappingQuerySpec `xml:"spec,omitempty"`
 }
 
 func init() {
@@ -8799,5 +8799,3 @@ type VsanVibInstallPreflightStatus struct {
 func init() {
 	types.Add("vsan:VsanVibInstallPreflightStatus", reflect.TypeOf((*VsanVibInstallPreflightStatus)(nil)).Elem())
 }
-
-
